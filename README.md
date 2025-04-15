@@ -8,6 +8,8 @@ Executes queries from multiple sql files and stores outputs as csv files
 5. great success
 
 Example:
+
+```
 minaise@RPC13-02:~/tmp/mssql2csv$ time ./mssql2csv *.sql
 ✅ assets.sql -> assets.csv
 ✅ networks.sql -> networks.csv
@@ -17,6 +19,7 @@ minaise@RPC13-02:~/tmp/mssql2csv$ time ./mssql2csv *.sql
 real    0m0.060s
 user    0m0.010s
 sys     0m0.010s
+```
 
 time elapsed 60 milliseconds :)
 
