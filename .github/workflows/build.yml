@@ -3,8 +3,6 @@ name: Go Build
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build:
@@ -21,4 +19,3 @@ jobs:
 
       - name: Build the project
         run: go build
-
