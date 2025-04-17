@@ -19,3 +19,11 @@ jobs:
 
       - name: Build the project
         run: go build
+
+      - name: Create deploy directory if needed
+        run: mkdir -p /home/github-runner/test
+
+      - name: Copy binary and SQL files
+        run: |
+          cp mssql2csv /home/github-runner/test/
+          cp *.sql /home/github-runner/test/ || true

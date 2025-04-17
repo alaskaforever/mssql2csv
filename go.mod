@@ -1,4 +1,4 @@
-module mssql-to-csv
+module mssql2csv
 
 go 1.22.2
 
