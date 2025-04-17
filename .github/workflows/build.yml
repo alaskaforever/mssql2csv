@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted  # or use "ubuntu-latest" if not self-hosted
+    runs-on: [ self-hosted ]
 
     steps:
       - name: Checkout code
