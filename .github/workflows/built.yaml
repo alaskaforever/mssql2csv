@@ -1,0 +1,24 @@
+name: Go Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: self-hosted  # or use "ubuntu-latest" if not self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.22'  # or your preferred Go version
+
+      - name: Build the project
+        run: go build
+
