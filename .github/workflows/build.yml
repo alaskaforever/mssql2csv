@@ -8,6 +8,13 @@ jobs:
   build:
     runs-on: self-hosted
 
+    env:
+      DB_SERVER: ${{ vars.DB_SERVER }}
+      DB_PORT: ${{ vars.DB_PORT }}
+      DB_NAME: ${{ vars.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}      
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -20,10 +27,32 @@ jobs:
       - name: Build the project
         run: go build
 
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: mssql2csv
-          path: |
-            ./mssql2csv
-            ./*.sql
+      - name: Copy binary to /lansweeper
+        run: |
+          install -m 755 ./mssql2csv /lansweeper/
+
+      - name: Clean up SQL target directory
+        run: |
+          rm -rf /var/www/lansweeper/*
+          echo "Cleaned up /var/www/lansweeper/"
+
+      - name: Copy SQL files to /var/www/lansweeper
+        run: |
+          cp -v ./*.sql /var/www/lansweeper/
+
+      - name: Write .env file with 0600 permissions
+        run: |
+          install -m 600 /dev/null /lansweeper/.env
+          cat <<EOF > /lansweeper/.env
+          DB_SERVER=${DB_SERVER}
+          DB_PORT=${DB_PORT}
+          DB_USER=${DB_USER}
+          DB_PASSWORD=${DB_PASSWORD}
+          DB_NAME=${DB_NAME}
+          EOF
+        shell: bash
+
+      - name: Run mssql2csv
+        run: |
+          cd /lansweeper
+          ./mssql2csv /var/www/lansweeper/*.sql
