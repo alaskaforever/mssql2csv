@@ -1,7 +1,7 @@
 # mssql2csv
 Executes queries from multiple sql files and stores outputs as csv files
 
-1. git clone https://alaskaforever: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@github.com/alaskaforever/mssql2csv.git
+1. git clone https://github.com/alaskaforever/mssql2csv.git
 2. cd mssql2csv
 3. go build -o mssql2csv
 4. set variable values in .env file
